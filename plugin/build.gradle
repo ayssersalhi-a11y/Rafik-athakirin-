@@ -1,1 +1,27 @@
+plugins {
+    id 'com.android.library'
+}
 
+android {
+    namespace 'com.rafiqaldhakirin.gpsplugin'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 34
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // مكتبة غودوت الرسمية لبناء إضافات أندرويد (v2) — من MavenCentral
+    // حدّث الرقم إن كانت نسخة غودوت لديك مختلفة عن 4.2
+    implementation "org.godotengine:godot:4.2.2.stable"
+
+    implementation "androidx.core:core:1.13.1"
+    implementation "com.google.android.gms:play-services-location:21.3.0"
+}
