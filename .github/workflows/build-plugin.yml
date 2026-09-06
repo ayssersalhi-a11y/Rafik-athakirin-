@@ -1,1 +1,33 @@
+name: Build GodotGPS Plugin
 
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # يسمح بتشغيل البناء يدويًا من تبويب Actions في GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build the plugin (.aar)
+        run: |
+          gradle wrapper --gradle-version 8.7
+          ./gradlew :plugin:assembleRelease
+
+      - name: Upload the compiled .aar
+        uses: actions/upload-artifact@v4
+        with:
+          name: GodotGPS-aar
+          path: plugin/build/outputs/aar/*.aar
